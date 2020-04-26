@@ -27,7 +27,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $files = Storage::disk('public')->files('user-files/' . Auth::id());
+        $files = Storage::disk()->files('user-files/' . Auth::id());
         $users = User::all();
         return view('home', compact('files', 'users'));
     }
@@ -40,7 +40,7 @@ class HomeController extends Controller
         if($request->hasFile('files'))
         {
             foreach ($files as $file) {
-                $filename = $file->store('user-files/' . $userId .'/', ['disk' => 'public']);
+                $filename = $file->store('user-files/' . $userId .'/');
                 UserFile::create([
                     'user_id' => $userId,
                     'file' => $filename
