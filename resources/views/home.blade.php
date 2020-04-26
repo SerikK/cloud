@@ -29,7 +29,7 @@
                     @else
                         @foreach($files as $file)
                             <p>
-                                <a href="/storage/{{ $file }}" target="_blank">
+                                <a href="{{ Storage::disk()->url($file) }}" target="_blank">
                                     <span class="oi oi-file"></span>
                                     <span>{{ $file }}</span>
                                 </a>
