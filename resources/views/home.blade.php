@@ -24,7 +24,7 @@
                                 <label>File</label>
                                 <input type="file" name="files[]" multiple class="form-control-file">
                             </div>
-                            <button class="btn btn-primary" type="submit">Отправить</button>
+                            <button class="btn btn-primary" type="submit">Send</button>
                         </form>
                     @else
                         @foreach($files as $file)
