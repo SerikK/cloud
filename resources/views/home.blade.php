@@ -27,15 +27,15 @@
                             <button class="btn btn-primary" type="submit">Send</button>
                         </form>
                     @else
-                        @foreach($files as $file)
-                            <p>
-                                <a href="{{ Storage::temporaryUrl($file, now()->addMinutes(5)) }}" target="_blank">
-                                    <span class="oi oi-file"></span>
-                                    <span>{{ $file }}</span>
-                                </a>
-                            </p>
-                        @endforeach
+{{--                        @foreach($files as $file)--}}
+{{--                            <p>--}}
+{{--                                <a href="{{ Storage::temporaryUrl($file, now()->addMinutes(5)) }}" target="_blank">--}}
+{{--                                    <img src="{{ Storage::temporaryUrl($file, now()->addMinutes(5)) }}" />--}}
+{{--                                </a>--}}
+{{--                            </p>--}}
+{{--                        @endforeach--}}
                     @endif
+                    <image-viewer></image-viewer>
                 </div>
             </div>
         </div>

@@ -41,9 +41,10 @@ class HomeController extends Controller
         {
             foreach ($files as $file) {
                 $filename = $file->store('user-files/' . $userId .'/');
+                Storage::temporaryUrl($file, now()->addMinutes(5));
                 UserFile::create([
                     'user_id' => $userId,
-                    'file' => $filename
+                    'file' => $filename,
                 ]);
             }
         }
