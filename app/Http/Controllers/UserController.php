@@ -22,6 +22,7 @@ class UserController extends Controller
     public function customerCreated(Request $request)
     {
         $content = json_decode($request->getContent());
+        Log::debug('Bigcommerce request: ' . print_r($content, 1));
         $userId = $content->data->id;
         Storage::disk('s3')->makeDirectory('user-files/' . $userId);
     }
