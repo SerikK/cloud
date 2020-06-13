@@ -21,6 +21,6 @@ class UserController extends Controller
 
     public function customerCreated(Request $request)
     {
-        Log::info('Bigcommerce request: ' . print_r($request->getContent()));
+        Log::info('Bigcommerce request: ' . print_r($request));
     }
 }
