@@ -29,12 +29,12 @@ Vue.component('image-viewer', require('./components/ImageViewer.vue').default);
 import Viewer from 'v-viewer'
 Vue.use(Viewer);
 Viewer.setDefaults({
-    inline: true,
-    minHeight: 500,
-    fullscreen: true,
-    viewed() {
-        viewer.zoomTo(1);
-    },
+    // inline: true,
+    // minHeight: 500,
+    // fullscreen: true,
+    // viewed() {
+    //     // viewer.zoomTo(1);
+    // },
 });
 const app = new Vue({
     el: '#app',
