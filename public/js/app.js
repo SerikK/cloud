@@ -1956,7 +1956,9 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       axios.get('/user/files').then(function (response) {
-        _this.images = response.data; // viewer.show();
+        _this.images = response.data;
+
+        _this.$viewer.show();
       });
     }
   }
@@ -42229,7 +42231,14 @@ var render = function() {
               fn: function(scope) {
                 return [
                   _vm._l(scope.images, function(src) {
-                    return _c("img", { key: src, attrs: { src: src } })
+                    return _c("img", {
+                      key: src,
+                      staticStyle: {
+                        display: "block",
+                        "margin-bottom": "10px"
+                      },
+                      attrs: { src: src }
+                    })
                   }),
                   _vm._v(
                     "\n                    " +
@@ -42240,11 +42249,7 @@ var render = function() {
               }
             }
           ])
-        }),
-        _vm._v(" "),
-        _c("button", { attrs: { type: "button" }, on: { click: _vm.show } }, [
-          _vm._v("Show")
-        ])
+        })
       ],
       1
     )

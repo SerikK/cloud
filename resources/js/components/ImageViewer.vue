@@ -9,11 +9,11 @@
                     class="viewer" ref="viewer"
             >
                 <template slot-scope="scope">
-                    <img v-for="src in scope.images" :src="src" :key="src">
+                    <img v-for="src in scope.images" :src="src" :key="src" style="display:block; margin-bottom: 10px">
                     {{scope.options}}
                 </template>
             </viewer>
-            <button type="button" @click="show">Show</button>
+<!--            <button type="button" @click="show">Show</button>-->
         </div>
     </div>
 </template>
@@ -43,7 +43,8 @@
             loadImages() {
                 axios.get('/user/files').then(response => {
                     this.images = response.data;
-                    // viewer.show();
+
+                    this.$viewer.show()
                 })
             }
         }
