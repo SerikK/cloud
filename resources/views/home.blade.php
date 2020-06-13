@@ -34,8 +34,8 @@
 {{--                                </a>--}}
 {{--                            </p>--}}
 {{--                        @endforeach--}}
+                        <image-viewer></image-viewer>
                     @endif
-                    <image-viewer></image-viewer>
                 </div>
             </div>
         </div>
