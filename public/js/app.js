@@ -1920,6 +1920,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
@@ -1936,6 +1939,9 @@ __webpack_require__.r(__webpack_exports__);
 
       axios.get('/user/files').then(function (response) {
         _this.images = response.data;
+
+        var viewer = _this.$el.querySelector('.images').$viewer; // viewer.show();
+
       });
     }
   }
@@ -41988,21 +41994,26 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container" }, [
-    _c(
-      "div",
-      { staticClass: "row justify-content-center" },
-      [
-        _c(
-          "viewer",
-          { attrs: { images: _vm.images } },
-          _vm._l(_vm.images, function(src) {
-            return _c("img", { key: src, attrs: { src: src } })
-          }),
-          0
-        )
-      ],
-      1
-    )
+    _c("div", { staticClass: "row justify-content-center" }, [
+      _c(
+        "div",
+        {
+          directives: [
+            {
+              name: "viewer",
+              rawName: "v-viewer",
+              value: { movable: false },
+              expression: "{movable: false}"
+            }
+          ],
+          staticClass: "images"
+        },
+        _vm._l(_vm.images, function(src) {
+          return _c("img", { key: src, attrs: { src: src } })
+        }),
+        0
+      )
+    ])
   ])
 }
 var staticRenderFns = []
@@ -54207,6 +54218,14 @@ Vue.component('image-viewer', __webpack_require__(/*! ./components/ImageViewer.v
 
 
 Vue.use(v_viewer__WEBPACK_IMPORTED_MODULE_0___default.a);
+v_viewer__WEBPACK_IMPORTED_MODULE_0___default.a.setDefaults({
+  inline: true,
+  minHeight: 500,
+  fullscreen: true,
+  viewed: function viewed() {
+    viewer.zoomTo(1);
+  }
+});
 var app = new Vue({
   el: '#app'
 });
