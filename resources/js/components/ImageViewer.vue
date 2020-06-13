@@ -9,7 +9,7 @@
                     class="viewer" ref="viewer"
             >
                 <template slot-scope="scope">
-                    <img v-for="src in scope.images" :src="src" :key="src" style="display:block; margin-bottom: 10px">
+                    <img v-for="src in scope.images" :src="src" :key="src" class="col-md-4 mb-4">
                     {{scope.options}}
                 </template>
             </viewer>
