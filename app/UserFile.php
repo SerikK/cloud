@@ -8,6 +8,8 @@ class UserFile extends Model
 {
     protected $fillable = [
         'user_id',
-        'file'
+        'file',
+        'type',
+        'short_version'
     ];
 }

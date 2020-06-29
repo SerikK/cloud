@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\UserFile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
@@ -11,12 +12,15 @@ class UserController extends Controller
 {
     public function files()
     {
-        $files = Storage::disk()->files('user-files/' . Auth::id());
-        $awsFiles = [];
+        // $files = Storage::disk()->files('user-files/' . Auth::id());
+        $files = UserFile::where('user_id', Auth::id())->get();
         foreach ($files as $file) {
-            $awsFiles[] = Storage::temporaryUrl($file, now()->addMinutes(5));
+            $file->file = Storage::temporaryUrl($file->file, now()->addMinutes(5));
+            if ($file->type === 'video') {
+                $file->short_version = Storage::temporaryUrl($file->short_version, now()->addMinutes(5));
+            }
         }
-        return $awsFiles;
+        return $files;
     }
 
     public function customerCreated(Request $request)
