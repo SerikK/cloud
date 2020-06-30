@@ -25,21 +25,21 @@
                 >
                     <template slot-scope="scope">
                         <div
-                            v-for="src in scope.images"
+                            v-for="(src, key) in scope.images"
                             :key="src.id"
                             class="col-md-4 mb-4 overflow-hidden"
+                            v-bind:class="(scope.images.length - key > scope.images.length % 3) ? 'bordered' : ''"
                             :alt="src.order_number"
                             :title="src.order_number"
-                            v-if="src.type === 'image'">
-                            <img :src="src.file" class="w-100" />
+                        >
+                            <img :src="src.file" class="w-100" v-if="src.type === 'image'" />
+                            <my-video-player
+                                :key="src.id"
+                                v-if="src.type === 'video'"
+                                :source="src.short_version"
+                                :full-version="src.file"
+                            ></my-video-player>
                         </div>
-                        <my-video-player
-                            v-for="src in scope.images"
-                            :key="src.id"
-                            v-if="src.type === 'video'"
-                            :source="src.short_version"
-                            :full-version="src.file"
-                        ></my-video-player>
                         {{scope.options}}
                     </template>
                 </viewer>
@@ -114,11 +114,8 @@
 
 
 <style lang="scss">
-    .mb-4 {
+    .mb-4.bordered {
         border-bottom: 1px solid #CCC;
         padding-bottom: 20px;
-    }
-    .row .mb-4:nth-last-child(-n+3) {
-        border-bottom: none;
     }
 </style>

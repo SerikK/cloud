@@ -1,5 +1,5 @@
 <template>
-    <div class="col-md-4 mb-4 overflow-hidden">
+    <div class="">
         <video-player  class="video-player-box mb-2"
                        ref="videoPlayer"
                        :options="playerOptions"
