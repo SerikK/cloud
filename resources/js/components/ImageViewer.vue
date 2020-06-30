@@ -111,3 +111,14 @@
         }
     }
 </script>
+
+
+<style lang="scss">
+    .mb-4 {
+        border-bottom: 1px solid #CCC;
+        padding-bottom: 20px;
+    }
+    .row .mb-4:nth-last-child(-n+3) {
+        border-bottom: none;
+    }
+</style>

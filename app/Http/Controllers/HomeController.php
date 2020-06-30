@@ -43,26 +43,25 @@ class HomeController extends Controller
         if($request->hasFile('files'))
         {
             foreach ($files as $file) {
+                $filename = $file->store('user-files/' . $userId);
 
                 if ($file->getMimeType() === 'video/mp4') {
                     $type = 'video';
+                    FFMpeg::fromDisk('s3')
+                        ->open($filename)
+                        ->addFilter(function (VideoFilters $filters) {
+                            $filters->clip(
+                                TimeCode::fromSeconds(0),
+                                TimeCode::fromSeconds(config('laravel-ffmpeg.video_duration'))
+                            );
+                        })
+                        ->export()
+                        ->toDisk('s3')
+                        ->inFormat(new \FFMpeg\Format\Video\X264('libmp3lame', 'libx264'))
+                        ->save('short/' . $filename);
                 } else {
                     $type = 'image';
                 }
-                $filename = $file->store('user-files/' . $userId);
-
-                FFMpeg::fromDisk('s3')
-                    ->open($filename)
-                    ->addFilter(function (VideoFilters $filters) {
-                        $filters->clip(
-                            TimeCode::fromSeconds(0),
-                            TimeCode::fromSeconds(config('laravel-ffmpeg.video_duration'))
-                        );
-                    })
-                    ->export()
-                    ->toDisk('s3')
-                    ->inFormat(new \FFMpeg\Format\Video\X264('libmp3lame', 'libx264'))
-                    ->save('short/' . $filename);
 
 
                 Storage::temporaryUrl($file, now()->addMinutes(5));
