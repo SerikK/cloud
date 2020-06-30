@@ -10,6 +10,9 @@ class UserFile extends Model
         'user_id',
         'file',
         'type',
-        'short_version'
+        'short_version',
+        'order_number',
+        'product_code',
+        'sequence'
     ];
 }

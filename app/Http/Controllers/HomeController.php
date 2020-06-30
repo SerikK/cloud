@@ -39,10 +39,16 @@ class HomeController extends Controller
     {
         $files = $request->file('files');
         $userId = $request->user_id;
-
+        $errors = [];
         if($request->hasFile('files'))
         {
             foreach ($files as $file) {
+                $baseFileName = basename($file->getClientOriginalName(), '.' . $file->getClientOriginalExtension());
+                $baseFileName = explode('_', $baseFileName);
+                if (count($baseFileName) !== 3 || strlen($baseFileName[0]) !== 8 || strlen($baseFileName[1]) !== 4 || strlen($baseFileName[2]) !== 4) {
+                    $errors[] = 'File '. $file->getClientOriginalName() . ' did not saved, because it has no proper format. Filename should be in this format: XXXXXXXX_XXXX_XXXX';
+                    continue;
+                }
                 $filename = $file->store('user-files/' . $userId);
 
                 if ($file->getMimeType() === 'video/mp4') {
@@ -66,14 +72,17 @@ class HomeController extends Controller
 
                 Storage::temporaryUrl($file, now()->addMinutes(5));
                 UserFile::create([
-                    'user_id' => $userId,
-                    'file' => $filename,
-                    'type' => $type,
-                    'short_version' => 'short/' . $filename
+                    'user_id'       => $userId,
+                    'file'          => $filename,
+                    'type'          => $type,
+                    'short_version' => 'short/' . $filename,
+                    'order_number'  => $baseFileName[0],
+                    'product_code'  => $baseFileName[1],
+                    'sequence'      => $baseFileName[2]
                 ]);
             }
         }
 
-        return redirect()->back();
+        return redirect()->back()->withErrors($errors);
     }
 }

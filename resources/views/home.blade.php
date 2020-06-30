@@ -10,6 +10,15 @@
                 <div class="card-body">
                     @if (Auth::user()->hasRole('administrator'))
                         <h4>Add user file</h4>
+                        @if ($errors->any())
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
                         <form action="{{ route('upload') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="form-group">
