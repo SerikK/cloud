@@ -28,7 +28,7 @@
                             v-for="(src, key) in scope.images"
                             :key="src.id"
                             class="col-md-4 mb-4 overflow-hidden"
-                            v-bind:class="(scope.images.length - key > scope.images.length % 3) ? 'bordered' : ''"
+                            v-bind:class="(scope.images.length % 3 === 0 ? (scope.images.length - key > 3) : (scope.images.length - key > scope.images.length % 3)) ? 'bordered' : ''"
                             :alt="src.order_number"
                             :title="src.order_number"
                         >
